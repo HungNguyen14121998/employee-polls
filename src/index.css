@@ -75,3 +75,16 @@ tr:nth-child(even) {
   border-style: solid;
   border-color: rgb(24, 171, 29);
 }
+
+.unanswered-view, .answered-view {
+  margin-top: 20px;
+  padding: 20px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.avatar, img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

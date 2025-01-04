@@ -11,7 +11,7 @@ const Nav = (props) => {
 
     dispatch(setAuthedUser("no_authen"));
 
-    navigate("/");
+    navigate("/login");
   };
 
   return (

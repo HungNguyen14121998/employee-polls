@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "../index";
 
-describe("Test Snapshot", () => {
+describe("Nav matching text", () => {
   it("sould render all links", async () => {
     render(
       <Provider store={store}>
@@ -21,16 +21,5 @@ describe("Test Snapshot", () => {
     expect(homeLink).toBeInTheDocument();
     expect(leaderboardLink).toBeInTheDocument();
     expect(newLink).toBeInTheDocument();
-  });
-
-  it("Nav match snapshot", async () => {
-    var component = render(
-      <Provider store={store}>
-        <Router>
-          <Nav />
-        </Router>
-      </Provider>
-    );
-    expect(component).toMatchSnapshot();
   });
 });

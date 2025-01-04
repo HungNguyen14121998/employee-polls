@@ -7,18 +7,29 @@ const Dashboard = (props) => {
   const [newQuestions, setNewQuetions] = useState([]);
   const [doneQuestions, setDoneQuestions] = useState([]);
 
+  const [isOnUnanswered, setIsOnUnanswered] = useState(true);
+  const [isOnAnswered, setIsOnAnswered] = useState(true);
+
+  const handleCleckUnanswered = () => {
+    setIsOnUnanswered(!isOnUnanswered);
+  };
+
+  const handleCleckAanswered = () => {
+    setIsOnAnswered(!isOnAnswered);
+  };
+
   useEffect(() => {
     const { questions, authedUser } = props;
 
-    const convertQuestions = Object.values(questions);
+    const convertQuestions = Object.values(questions).sort(
+      (a, b) => b.timestamp - a.timestamp
+    );
 
     var arrayDoneQuestions = [];
     var arrayNewQuetions = [];
     convertQuestions.forEach((question) => {
       const votesOptionOne = question.optionOne.votes;
       const votesOptionTwo = question.optionTwo.votes;
-
-      console.log(questions);
 
       const votes = votesOptionOne.concat(votesOptionTwo);
 
@@ -37,17 +48,25 @@ const Dashboard = (props) => {
     <div className="container">
       <h1 className="center">Home</h1>
       <Nav />
-      <h2>New Questions</h2>
-      <div className="list-question">
-        {newQuestions.map((question) => (
-          <Question key={question.id} quetion={question}></Question>
-        ))}
+      <div className="unanswered-view" onClick={() => handleCleckUnanswered()}>
+        <h2>
+          Unanswered {isOnUnanswered == false && `(${newQuestions.length})`}
+        </h2>
+        <div className="list-question">
+          {isOnUnanswered &&
+            newQuestions.map((question) => (
+              <Question key={question.id} quetion={question}></Question>
+            ))}
+        </div>
       </div>
-      <h2>Done Questions</h2>
-      <div className="list-question">
-        {doneQuestions.map((question) => (
-          <Question key={question.id} quetion={question}></Question>
-        ))}
+      <div className="answered-view" onClick={() => handleCleckAanswered()}>
+        <h2>Answered {isOnAnswered == false && `(${doneQuestions.length})`}</h2>
+        <div className="list-question">
+          {isOnAnswered &&
+            doneQuestions.map((question) => (
+              <Question key={question.id} quetion={question}></Question>
+            ))}
+        </div>
       </div>
     </div>
   );

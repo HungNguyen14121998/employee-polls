@@ -1,6 +1,6 @@
 import React from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import ReactDOM from "react-dom";
 import App from "./components/App";
 import "./index.css";
 import reducers from "./reducers";
@@ -11,11 +11,14 @@ export const store = configureStore({
   reducer: reducers,
 });
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
+const root = createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>
 );

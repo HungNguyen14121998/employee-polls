@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Nav from "./Nav";
 import { useState } from "react";
 import { createQuestion } from "../actions/questions";
@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 const New = (props) => {
   const navigate = useNavigate();
+
+  const authedUser = useSelector((state) => state.authedUser);
+  const dispatch = useDispatch();
 
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
@@ -27,7 +30,7 @@ const New = (props) => {
 
     const quetion = {
       id,
-      author: props.authedUser,
+      author: authedUser,
       timestamp: Date.now(),
       optionOne: {
         votes: [],
@@ -39,8 +42,8 @@ const New = (props) => {
       },
     };
 
-    props.dispatch(createQuestion(quetion));
-    props.dispatch(createQuestionUser(quetion));
+    dispatch(createQuestion(quetion));
+    dispatch(createQuestionUser(quetion));
 
     setIsSuccess(true);
 
@@ -94,8 +97,4 @@ const New = (props) => {
   );
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-  authedUser,
-});
-
-export default connect(mapStateToProps)(New);
+export default New;

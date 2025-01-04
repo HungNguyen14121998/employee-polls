@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 
 const Question = (props) => {
+  const { id, author, timestamp } = props.quetion;
+
   return (
     <div className="question">
-      <h3>{props.quetion.author}</h3>
-      <p>{new Date(props.quetion.timestamp).toLocaleDateString("en-US")}</p>
-      <Link to={`/questions/${props.quetion.id}`}>Show</Link>
+      <h3>{author}</h3>
+      <p>{new Date(timestamp).toLocaleDateString("en-US")}</p>
+      <Link to={`/questions/${id}`}>Show</Link>
     </div>
   );
 };

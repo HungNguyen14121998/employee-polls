@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
@@ -7,31 +7,53 @@ import { Route, Routes } from "react-router-dom";
 import Leaderboard from "./Leaderboard";
 import New from "./New";
 import QuestionDetail from "./QuestionDetail";
+import PrivateRoute from "./PrivateRoute";
+import NotFound from "./NotFound";
 
 function App(props) {
+  const authedUser = useSelector((state) => state.authedUser);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    props.dispatch(handleInitialData());
+    dispatch(handleInitialData());
   }, []);
   return (
     <div>
       <h1>Employee Polls</h1>
-      {props.loading === true ? null : props.logged === true ? (
+      {authedUser === null ? null : (
         <Routes>
-          <Route path="/" exact element={<Dashboard />} />
+          <Route
+            path="/"
+            exact
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
           <Route path="/questions/:question_id" element={<QuestionDetail />} />
-          <Route path="/leaderboard" exact element={<Leaderboard />} />
-          <Route path="/new" exact element={<New />} />
+          <Route
+            path="/leaderboard"
+            element={
+              <PrivateRoute>
+                <Leaderboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/new"
+            element={
+              <PrivateRoute>
+                <New />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/404" element={<NotFound />} />
         </Routes>
-      ) : (
-        <Login />
       )}
     </div>
   );
 }
 
-const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
-  logged: authedUser !== "no_authen",
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

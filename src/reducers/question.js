@@ -21,25 +21,43 @@ export default function questions(state = {}, action) {
 
       const question = state[questionId];
       if (question.optionOne.text === answer) {
-        const newVotes = state[questionId].optionOne.votes.concat(authedUser);
+        const newVotesOptionOne =
+          state[questionId].optionOne.votes.concat(authedUser);
+        const newVotesOptionTwo = state[questionId].optionTwo.votes.filter(
+          (user) => user !== authedUser
+        );
+        const optionTwoText = state[questionId].optionTwo.text;
         return {
           ...state,
           [action.answerInfo.questionId]: {
             ...state[questionId],
             optionOne: {
-              votes: newVotes,
+              votes: newVotesOptionOne,
               text: answer,
+            },
+            optionTwo: {
+              votes: newVotesOptionTwo,
+              text: optionTwoText,
             },
           },
         };
       } else {
-        const newVotes = state[questionId].optionTwo.votes.concat(authedUser);
+        const newVotesOptionTwo =
+          state[questionId].optionTwo.votes.concat(authedUser);
+        const newVotesOptionOne = state[questionId].optionOne.votes.filter(
+          (user) => user !== authedUser
+        );
+        const optionOneText = state[questionId].optionOne.text;
         return {
           ...state,
           [action.answerInfo.questionId]: {
             ...state[questionId],
+            optionOne: {
+              votes: newVotesOptionOne,
+              text: optionOneText,
+            },
             optionTwo: {
-              votes: newVotes,
+              votes: newVotesOptionTwo,
               text: answer,
             },
           },

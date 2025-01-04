@@ -12,10 +12,9 @@ Project using React and Redux build a application allow user login, create poll 
 4. Leaderboad => collect data polls and answers
 5. New => create a poll
 
-## Run App using:
+## Install and luanching
 
-### `npm start`
-
-## Test App using:
-
-### `npm run test`
+- Clone or download the project from link: [https://github.com/HungNguyen14121998/employee-polls.git](https://github.com/HungNguyen14121998/employee-polls.git).
+- Run `npm install` in the project root directory to install dependencies
+- Run `npm start` to launch the project.
+- Run `npm run test` to run unit test in the project.
