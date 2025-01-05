@@ -50,7 +50,7 @@ const New = (props) => {
     setOptionOneText("");
     setOptionTwoText("");
 
-    setTimeout(() => navigate("/"), 1000);
+    // setTimeout(() => navigate("/"), 1000);
   };
 
   function generateUID() {

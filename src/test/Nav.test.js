@@ -2,7 +2,7 @@ import Nav from "../components/Nav";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { store } from "../index";
+import { store } from "../components/store";
 
 describe("Nav matching text", () => {
   it("sould render all links", async () => {
@@ -21,5 +21,16 @@ describe("Nav matching text", () => {
     expect(homeLink).toBeInTheDocument();
     expect(leaderboardLink).toBeInTheDocument();
     expect(newLink).toBeInTheDocument();
+  });
+
+  it("Nav match to snapshot", () => {
+    var component = render(
+      <Provider store={store}>
+        <Router>
+          <Nav />
+        </Router>
+      </Provider>
+    );
+    expect(component).toMatchSnapshot();
   });
 });

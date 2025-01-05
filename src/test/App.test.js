@@ -3,7 +3,7 @@ import App from "../components/App";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { store } from "../index";
+import { store } from "../components/store";
 
 describe("App Component", () => {
   test("App Heading", () => {
@@ -15,7 +15,7 @@ describe("App Component", () => {
       </Provider>
     );
 
-    const heading = screen.getByText(/employees polls/i);
+    const heading = screen.getByText(/Employee Polls/i);
 
     expect(heading).toBeInTheDocument();
   });
