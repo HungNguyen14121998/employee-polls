@@ -4,8 +4,10 @@ import { useState } from "react";
 import { createQuestion } from "../actions/questions";
 import { createQuestionUser } from "../actions/users";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthenContext";
 
 const New = (props) => {
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const authedUser = useSelector((state) => state.authedUser);
@@ -28,22 +30,24 @@ const New = (props) => {
   const handleSubmitButton = (e) => {
     const id = generateUID();
 
-    const quetion = {
-      id,
-      author: authedUser,
-      timestamp: Date.now(),
-      optionOne: {
-        votes: [],
-        text: optionOneText,
-      },
-      optionTwo: {
-        votes: [],
-        text: optionTwoText,
-      },
-    };
+    if (auth.user) {
+      const question = {
+        id,
+        author: auth.user,
+        timestamp: Date.now(),
+        optionOne: {
+          votes: [],
+          text: optionOneText,
+        },
+        optionTwo: {
+          votes: [],
+          text: optionTwoText,
+        },
+      };
 
-    dispatch(createQuestion(quetion));
-    dispatch(createQuestionUser(quetion));
+      dispatch(createQuestion(question));
+      dispatch(createQuestionUser(question));
+    }
 
     setIsSuccess(true);
 

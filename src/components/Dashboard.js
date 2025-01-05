@@ -2,8 +2,10 @@ import { connect } from "react-redux";
 import Nav from "./Nav";
 import { useEffect, useState } from "react";
 import Question from "./Question";
+import { useAuth } from "./AuthenContext";
 
 const Dashboard = (props) => {
+  const auth = useAuth();
   const [newQuestions, setNewQuetions] = useState([]);
   const [doneQuestions, setDoneQuestions] = useState([]);
 
@@ -33,10 +35,12 @@ const Dashboard = (props) => {
 
       const votes = votesOptionOne.concat(votesOptionTwo);
 
-      if (votes.includes(authedUser)) {
-        arrayDoneQuestions.push(question);
-      } else {
-        arrayNewQuetions.push(question);
+      if (auth.user) {
+        if (votes.includes(auth.user)) {
+          arrayDoneQuestions.push(question);
+        } else {
+          arrayNewQuetions.push(question);
+        }
       }
     });
 

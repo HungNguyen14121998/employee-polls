@@ -6,9 +6,11 @@ import { saveQuestionAnswer } from "../actions/questions";
 import { saveQuestionUser } from "../actions/users";
 // import { saveQuestionAnswerData } from "../actions/questions";
 import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "./AuthenContext";
 
 const QuestionDetail = (props) => {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   let params = useParams();
   const questionId = params.question_id;
@@ -28,7 +30,8 @@ const QuestionDetail = (props) => {
   const percentAnswered = (numberUsersAnswered / numberUsers) * 100;
 
   const handleClickOptionOne = (e) => {
-    const { dispatch, authedUser } = props;
+    const { dispatch } = props;
+    const authedUser = auth.user ?? "";
 
     const answer = optionOne;
     dispatch(saveQuestionAnswer({ authedUser, questionId, answer }));
@@ -39,7 +42,8 @@ const QuestionDetail = (props) => {
   };
 
   const handleClickOptionTwo = (e) => {
-    const { dispatch, authedUser } = props;
+    const { dispatch } = props;
+    const authedUser = auth.user ?? "";
 
     const answer = optionTwo;
     dispatch(saveQuestionAnswer({ authedUser, questionId, answer }));
@@ -55,8 +59,8 @@ const QuestionDetail = (props) => {
     convertQuestions.forEach((question) => {
       if (question.id === questionId) {
         setQuestion(question);
-        setAnsweredOne(question.optionOne.votes.includes(props.authedUser));
-        setAnsweredTwo(question.optionTwo.votes.includes(props.authedUser));
+        setAnsweredOne(question.optionOne.votes.includes(auth.user ?? ""));
+        setAnsweredTwo(question.optionTwo.votes.includes(auth.user ?? ""));
 
         const totalVotes =
           question.optionOne.votes.length + question.optionTwo.votes.length;
@@ -79,9 +83,7 @@ const QuestionDetail = (props) => {
     }
   });
 
-  return !Object.keys(props.questions).includes(questionId) ||
-    props.authedUser == null ||
-    props.authedUser === "no_authen" ? (
+  return !Object.keys(props.questions).includes(questionId) && auth.user ? (
     <Navigate to="/404" />
   ) : (
     <div className="container">

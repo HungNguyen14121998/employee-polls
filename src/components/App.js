@@ -31,7 +31,14 @@ function App(props) {
               </PrivateRoute>
             }
           />
-          <Route path="/questions/:question_id" element={<QuestionDetail />} />
+          <Route
+            path="/questions/:question_id"
+            element={
+              <PrivateRoute>
+                <QuestionDetail />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/leaderboard"
             element={

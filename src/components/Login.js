@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthenContext";
 
 const Login = (props) => {
-  const navigate = useNavigate();
-
+  const auth = useAuth();
   const [users, setUsers] = useState([]);
   const [userLogin, setUserLogin] = useState("");
 
@@ -23,8 +22,7 @@ const Login = (props) => {
   const handleClickLogin = (event) => {
     const { dispatch } = props;
     dispatch(setAuthedUser(userLogin));
-
-    navigate("/");
+    auth.loginAction(userLogin);
   };
 
   return (
