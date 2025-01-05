@@ -18,6 +18,8 @@ const QuestionDetail = (props) => {
   const [optionTwo, setOptionTwo] = useState("");
   const [answeredOne, setAnsweredOne] = useState(false);
   const [answeredTwo, setAnsweredTwo] = useState(false);
+  const [percentOptionOne, setPercentOptionOne] = useState(0);
+  const [percentOptionTwo, setPercentOptionTwo] = useState(0);
 
   const numberUsers = props.users.length;
   const numberUsersAnswered = props.users.filter((user) => {
@@ -32,7 +34,6 @@ const QuestionDetail = (props) => {
     dispatch(saveQuestionAnswer({ authedUser, questionId, answer }));
     dispatch(saveQuestionUser({ authedUser, questionId, answer: "optionOne" }));
 
-    navigate("/");
     // not working
     // dispatch(saveQuestionAnswerData({ authedUser, qid: questionId, answer }));
   };
@@ -44,7 +45,6 @@ const QuestionDetail = (props) => {
     dispatch(saveQuestionAnswer({ authedUser, questionId, answer }));
     dispatch(saveQuestionUser({ authedUser, questionId, answer: "optionTwo" }));
 
-    navigate("/");
     // not working
     // dispatch(saveQuestionAnswerData({ authedUser, qid: questionId, answer }));
   };
@@ -57,6 +57,15 @@ const QuestionDetail = (props) => {
         setQuestion(question);
         setAnsweredOne(question.optionOne.votes.includes(props.authedUser));
         setAnsweredTwo(question.optionTwo.votes.includes(props.authedUser));
+
+        const totalVotes =
+          question.optionOne.votes.length + question.optionTwo.votes.length;
+        const percentVoteOne =
+          (question.optionOne.votes.length / totalVotes) * 100;
+        const percentVoteTwo =
+          (question.optionTwo.votes.length / totalVotes) * 100;
+        setPercentOptionOne(Math.floor(percentVoteOne));
+        setPercentOptionTwo(Math.floor(percentVoteTwo));
         return;
       }
     });
@@ -99,8 +108,14 @@ const QuestionDetail = (props) => {
             {answeredTwo && <b>Your last answer is option two</b>}
           </li>
           <li>
-            <label>1. {optionOne}</label>
+            <b>With {percentOptionOne}% users voted option one</b>
+          </li>
+          <li>
+            <label>1. {optionOne} </label>
             <button onClick={(e) => handleClickOptionOne(e)}>Click</button>
+          </li>
+          <li>
+            <b>With {percentOptionTwo}% users voted option two</b>
           </li>
           <li>
             <label>2. {optionTwo}</label>

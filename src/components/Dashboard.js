@@ -8,7 +8,7 @@ const Dashboard = (props) => {
   const [doneQuestions, setDoneQuestions] = useState([]);
 
   const [isOnUnanswered, setIsOnUnanswered] = useState(true);
-  const [isOnAnswered, setIsOnAnswered] = useState(true);
+  const [isOnAnswered, setIsOnAnswered] = useState(false);
 
   const handleCleckUnanswered = () => {
     setIsOnUnanswered(!isOnUnanswered);
