@@ -4,13 +4,16 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "../components/store";
+import AuthProvider from "../components/AuthenContext";
 
 describe("App Component", () => {
   test("App Heading", () => {
     render(
       <Provider store={store}>
         <Router>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </Router>
       </Provider>
     );
