@@ -4,6 +4,14 @@ import { useAuth } from "./AuthenContext";
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
 
-  return auth.user ? children : <Navigate to="/login" />;
+  const redirectUrl = window.location.href
+    .toString()
+    .split(window.location.host)[1];
+
+  return auth.user ? (
+    children
+  ) : (
+    <Navigate to={`/login?redirectTo=${redirectUrl}`} />
+  );
 };
 export default PrivateRoute;
