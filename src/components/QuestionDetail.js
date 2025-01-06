@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { saveQuestionAnswer } from "../actions/questions";
 import { saveQuestionUser } from "../actions/users";
 // import { saveQuestionAnswerData } from "../actions/questions";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router";
 import { useAuth } from "./AuthenContext";
 
 const QuestionDetail = (props) => {
