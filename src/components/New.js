@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import { useState } from "react";
 import { createQuestion } from "../actions/questions";
 import { createQuestionUser } from "../actions/users";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthenContext";
 
 const New = (props) => {

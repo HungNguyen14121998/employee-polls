@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import Leaderboard from "./Leaderboard";
 import New from "./New";
 import QuestionDetail from "./QuestionDetail";

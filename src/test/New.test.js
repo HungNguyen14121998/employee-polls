@@ -2,7 +2,7 @@ import * as React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import New from "../components/New";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "../components/store";
 import AuthProvider from "../components/AuthenContext";
 
@@ -10,11 +10,11 @@ describe("NEW", () => {
   it("fireEvent.change fireEvent.click", () => {
     var component = render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router>
           <AuthProvider>
             <New />
           </AuthProvider>
-        </BrowserRouter>
+        </Router>
       </Provider>
     );
 

@@ -1,7 +1,7 @@
 import Nav from "../components/Nav";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "../components/store";
 import AuthProvider from "../components/AuthenContext";
 
@@ -9,11 +9,11 @@ describe("Nav matching text", () => {
   it("sould render all links", async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router>
           <AuthProvider>
             <Nav />
           </AuthProvider>
-        </BrowserRouter>
+        </Router>
       </Provider>
     );
 
