@@ -1,11 +1,9 @@
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setAuthedUser } from "../actions/authedUser";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthenContext";
 
 const Nav = (props) => {
-  const navigate = useNavigate();
   const auth = useAuth();
 
   const handleClickLogout = (event) => {

@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
 
   const loginAction = (username) => {
     setUser(username);
-    // localStorage.setItem("username", username);
     const urlParams = new URLSearchParams(window.location.search);
     const redirectUrl = urlParams.get("redirectTo");
 
@@ -18,7 +17,6 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setUser(null);
-    // localStorage.removeItem("username");
     navigate("/login");
   };
 

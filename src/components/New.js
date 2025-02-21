@@ -1,16 +1,12 @@
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Nav from "./Nav";
 import { useState } from "react";
 import { createQuestion } from "../actions/questions";
 import { createQuestionUser } from "../actions/users";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthenContext";
 
 const New = (props) => {
   const auth = useAuth();
-  const navigate = useNavigate();
-
-  const authedUser = useSelector((state) => state.authedUser);
   const dispatch = useDispatch();
 
   const [optionOneText, setOptionOneText] = useState("");

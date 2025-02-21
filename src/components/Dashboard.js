@@ -21,7 +21,7 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
-    const { questions, authedUser } = props;
+    const { questions } = props;
 
     const convertQuestions = Object.values(questions).sort(
       (a, b) => b.timestamp - a.timestamp
@@ -54,7 +54,7 @@ const Dashboard = (props) => {
       <Nav />
       <div className="unanswered-view" onClick={() => handleCleckUnanswered()}>
         <h2>
-          Unanswered {isOnUnanswered == false && `(${newQuestions.length})`}
+          Unanswered {isOnUnanswered === false && `(${newQuestions.length})`}
         </h2>
         <div className="list-question">
           {isOnUnanswered &&
@@ -64,7 +64,9 @@ const Dashboard = (props) => {
         </div>
       </div>
       <div className="answered-view" onClick={() => handleCleckAanswered()}>
-        <h2>Answered {isOnAnswered == false && `(${doneQuestions.length})`}</h2>
+        <h2>
+          Answered {isOnAnswered === false && `(${doneQuestions.length})`}
+        </h2>
         <div className="list-question">
           {isOnAnswered &&
             doneQuestions.map((question) => (
@@ -76,9 +78,8 @@ const Dashboard = (props) => {
   );
 };
 
-const mapStateToProps = ({ questions, authedUser, users }) => ({
+const mapStateToProps = ({ questions }) => ({
   questions,
-  authedUser,
 });
 
 export default connect(mapStateToProps)(Dashboard);

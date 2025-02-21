@@ -5,11 +5,10 @@ import Nav from "./Nav";
 import { saveQuestionAnswer } from "../actions/questions";
 import { saveQuestionUser } from "../actions/users";
 // import { saveQuestionAnswerData } from "../actions/questions";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthenContext";
 
 const QuestionDetail = (props) => {
-  const navigate = useNavigate();
   const auth = useAuth();
 
   let params = useParams();
@@ -81,7 +80,7 @@ const QuestionDetail = (props) => {
       setOptionOne(answerOne.text);
       setOptionTwo(answerTwo.text);
     }
-  });
+  }, []);
 
   return !Object.keys(props.questions).includes(questionId) && auth.user ? (
     <Navigate to="/404" />
